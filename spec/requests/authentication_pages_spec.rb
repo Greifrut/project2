@@ -29,6 +29,7 @@ RSpec.describe "AuthenticationPages", type: :request do
         end
       end
 
+
       describe "with valid information" do
           let(:user) { FactoryGirl.create(:user)}
           before do
@@ -43,7 +44,5 @@ RSpec.describe "AuthenticationPages", type: :request do
           it {should have_link('Sign in'), href: signin_path}
       end
     end
-  end
-
-
+  end  
 end
