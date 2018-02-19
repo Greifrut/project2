@@ -27,7 +27,5 @@ module SessionsHelper
     @curent_user ||= User.find_by(remember_token: remember_token)
   end
 
-  def curent_user?(user)
-    user == curent_user
-  end  
+  
 end

@@ -100,12 +100,11 @@ describe "User pages" do
         specify (expect(response).to redirect_to(root_url))
       end
 
-      describe "submittin a PATCH request to the Users#update action" do
-        before {patch user_path(wrong_user)}
-        specify (expect(response).to redirect_to(root_url)
+      describe "submitting a PATCH request to the User#update action" do
+        before { patch user_path(wrong_user) }
+        specify { expect(response).to redirect_to(root_url) }
       end
     end
-
   end
 
   describe "Profile page " do
@@ -116,6 +115,5 @@ describe "User pages" do
     it {should have_content(user.name)}
     it {should have_title(user.name)}
   end
-
 
 end
