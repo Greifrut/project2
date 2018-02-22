@@ -13,6 +13,15 @@ RSpec.describe "AuthenticationPages", type: :request do
 
     end
 
+    describe "not sure" do
+      before {visit root_path}
+
+        it {should have_no_link('Users',       href: users_path)}
+        it {should have_no_link('Profile',     '#')}
+        it {should have_no_link('Sign out',    href: signout_path)}
+        it {should have_no_link('Setting',     '#')}
+    end
+
     describe "signin" do
       before {visit signin_path}
 
@@ -21,6 +30,7 @@ RSpec.describe "AuthenticationPages", type: :request do
 
         it {should have_title('Sign in')}
         it {should have_selector('div.alert.alert-error')}
+   
 
         describe "after visiting another page" do
           before {click_link "Home"}
@@ -28,6 +38,7 @@ RSpec.describe "AuthenticationPages", type: :request do
           it {should_not have_selector('div.alert.alert-error')}
         end
       end
+
 
       describe "with valid information" do
           let(:user) { FactoryGirl.create(:user)}
@@ -47,12 +58,7 @@ RSpec.describe "AuthenticationPages", type: :request do
         let(:user) {FactoryGirl.create(:user)}
 
         describe "when attemptinng to visit a protected page" do
-          before do
-            visit edit_user_path(user)
-            fill_in "Email",    with: user.email
-            fill_in "Password", with: user.password
-            click_button "Sign in"
-          end
+          before {sign_in user}
 
           describe "after signing in" do
 
@@ -107,7 +113,7 @@ RSpec.describe "AuthenticationPages", type: :request do
 
         describe "submitting a DELETE request to the Users#destroy action" do
           before {delete user_path(user)}
-          specify {expect(response).to redirect_to(root_patha)}
+          specify {expect(response).to redirect_to(root_path)}
         end
       end
     end
