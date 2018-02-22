@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
+    @user = User.new 
   end
 
   def show
@@ -69,4 +69,5 @@ class UsersController < ApplicationController
     def admin_user
       redirect_to(root_url) unless curent_user.admin?
     end
+
 end
