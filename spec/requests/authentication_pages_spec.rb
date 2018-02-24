@@ -57,6 +57,18 @@ RSpec.describe "AuthenticationPages", type: :request do
       describe "for non-signed-in users" do
         let(:user) {FactoryGirl.create(:user)}
 
+        describe "in the Microposts controller" do
+          describe "submitting to the create action" do
+            before {post microposts_path}
+            specify { expect(response).to redirect_to(signin_path)}
+          end
+
+          describe "submitting to the destroy action" do
+            before {delete microposts_path(FactoryGirl.create(:micropost))}
+            specify {expect(response).to redirect_to(signin_path)}
+          end
+        end
+
         describe "when attemptinng to visit a protected page" do
           before {sign_in user}
 
